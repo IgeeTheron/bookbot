@@ -1,16 +1,25 @@
-import string
-
 def get_num_words(file_contents):
     return len(file_contents.split())
 
-def get_num_caracters(file_contents):
-    alphabet_dict = {letter: 0 for letter in string.ascii_lowercase}
-    list_of_chars = list(file_contents)
+def get_chars_dict(text):
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
+        else:
+            chars[lowered] = 1
+    return chars
 
-    for char in list_of_chars:
-        char = char.lower()
-        if (char in alphabet_dict):
-            alphabet_dict[char] += 1
-    
+def sort_on(items):
+    return items["num"]
 
-    return alphabet_dict
+def chars_dict_to_sorted_list(num_chars_dict):
+    list_of_chars = []
+
+    for ch in num_chars_dict:
+        list_of_chars.append({"char": ch, "num": num_chars_dict[ch]})
+
+    list_of_chars.sort(reverse=True, key=sort_on)
+
+    return list_of_chars
